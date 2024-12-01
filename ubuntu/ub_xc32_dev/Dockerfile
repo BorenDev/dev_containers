@@ -96,19 +96,24 @@ COPY env.sh .
 COPY xc32_mx.sh .
 RUN /workdir/xc32_mx.sh
 
-FROM ubuntu:24.04 AS ub_dev
-
-ARG XC_TOOLCHAIN_VERSION=4.45
-
-COPY --from=cmake_build /workdir/cmake-install/ /usr/local/
-COPY --from=xc32_build /workdir/xc32-v${XC_TOOLCHAIN_VERSION}-install/ /usr/local/pic32m
-
-# RUN dpkg --add-architecture i386 && \
-#     apt-get -y update && \
-#     apt-get -f install -y \
-#     mingw-w64
-# 
-# #    g++-mingw-w64-i686 \
-# #    gcc-mingw-w64-i686 \
-# #    gcc-mingw-w64-x86-64 \
-# #    g++-mingw-w64-x86-64
+# FROM ubuntu:24.04 AS ub_dev
+#
+# ARG XC_TOOLCHAIN_VERSION=4.45
+#
+# COPY --from=cmake_build /workdir/cmake-install/ /usr/local/
+# COPY --from=xc32_build /workdir/xc32-v${XC_TOOLCHAIN_VERSION}-install/ /usr/local/pic32m
+#
+# # Add the directory to the PATH
+# ENV PATH $PATH:/usr/local/pic32m/bin/bin
+#
+# WORKDIR /workdir
+#
+# # RUN dpkg --add-architecture i386 && \
+# #     apt-get -y update && \
+# #     apt-get -f install -y \
+# #     mingw-w64
+# # 
+# # #    g++-mingw-w64-i686 \
+# # #    gcc-mingw-w64-i686 \
+# # #    gcc-mingw-w64-x86-64 \
+# # #    g++-mingw-w64-x86-64
