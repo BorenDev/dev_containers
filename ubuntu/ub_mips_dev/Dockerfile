@@ -67,3 +67,11 @@ WORKDIR /workdir
 
 COPY mips-build-cross-toolchain.sh .
 RUN ./mips-build-cross-toolchain.sh
+
+FROM ubuntu:24.04 AS ub_dev
+
+COPY --from=cmake_build /workdir/cmake-install/ /usr/local/
+COPY --from=mips_build /workdir/mipsel-elf/install/ /usr/local/
+
+
+WORKDIR /workdir
