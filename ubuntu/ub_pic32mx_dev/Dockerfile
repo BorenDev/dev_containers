@@ -44,6 +44,7 @@ ARG GROUP_ID=1000
 RUN dpkg --add-architecture i386 && \
     apt-get -y update && \
     apt-get -f install -y \
+    ninja-build \
     zip
 
 WORKDIR /workdir

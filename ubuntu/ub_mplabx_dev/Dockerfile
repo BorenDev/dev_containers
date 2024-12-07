@@ -118,4 +118,7 @@ RUN mkdir -p "${CUR_ATPACK_DIR}" \
 
 COPY --from=cmake_build /workdir/cmake-install/ /usr/local/
 
+RUN apt-get -f install -y \
+    ninja-build
+
 WORKDIR /workdir

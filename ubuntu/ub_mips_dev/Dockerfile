@@ -61,6 +61,7 @@ RUN dpkg --add-architecture i386 && \
     tree \
     vim \
     wget \
+    ninja-build \
     zip
 
 WORKDIR /workdir
@@ -69,6 +70,10 @@ COPY mips-build-cross-toolchain.sh .
 RUN ./mips-build-cross-toolchain.sh
 
 FROM ubuntu:24.04 AS ub_dev
+
+RUN apt-get -y update && \
+    apt-get -f install -y \
+    ninja-build
 
 COPY --from=cmake_build /workdir/cmake-install/ /usr/local/
 COPY --from=mips_build /workdir/mipsel-elf/install/ /usr/local/
